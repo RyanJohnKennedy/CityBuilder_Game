@@ -13,6 +13,12 @@ public class BuildingManager : MonoBehaviour
     private RaycastHit hit;
     [SerializeField] private LayerMask layerMask;
 
+    public float rotateAmount;
+
+    public float gridSize;
+    bool gridOn;
+    [SerializeField] private Toggle gridToggle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,10 +30,19 @@ public class BuildingManager : MonoBehaviour
     {
         if(selectedObject != null)
         {
-            selectedObject.transform.position = pos;
+            if (gridOn)
+            {
+                selectedObject.transform.position = new Vector3(
+                    RoundToNearestGrid(pos.x),
+                    RoundToNearestGrid(pos.y),
+                    RoundToNearestGrid(pos.z));
+            }
+            else selectedObject.transform.position = pos; 
 
             if (Input.GetMouseButtonDown(0))
                 PlaceObject();
+            if (Input.GetKey(KeyCode.R))
+                RotateObject();
         }
     }
 
@@ -48,5 +63,28 @@ public class BuildingManager : MonoBehaviour
     public void PlaceObject()
     {
         selectedObject = null;
+    }
+
+    public void ToggleGrid()
+    {
+        if (gridToggle.isOn)
+            gridOn = true;
+        else 
+            gridOn = false;
+    }
+
+    float RoundToNearestGrid(float pos)
+    {
+        float xDiff = pos % gridSize;
+        pos -= xDiff;
+        if (xDiff > (gridSize / 2))
+            pos += gridSize;
+
+        return pos;
+    }
+
+    public void RotateObject()
+    {
+        selectedObject.transform.Rotate(Vector3.up, rotateAmount * Time.deltaTime);
     }
 }

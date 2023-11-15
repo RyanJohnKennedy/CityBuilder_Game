@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class BuildingManager : MonoBehaviour
 {
     public GameObject[] objects;
-    private GameObject selectedObject;
+    private GameObject placingObject;
 
     private Vector3 pos;
 
@@ -28,16 +28,16 @@ public class BuildingManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(selectedObject != null)
+        if(placingObject != null)
         {
             if (gridOn)
             {
-                selectedObject.transform.position = new Vector3(
+                placingObject.transform.position = new Vector3(
                     RoundToNearestGrid(pos.x),
                     RoundToNearestGrid(pos.y),
                     RoundToNearestGrid(pos.z));
             }
-            else selectedObject.transform.position = pos; 
+            else placingObject.transform.position = pos; 
 
             if (Input.GetMouseButtonDown(0))
                 PlaceObject();
@@ -57,12 +57,12 @@ public class BuildingManager : MonoBehaviour
 
     public void SelectObject(int index)
     {
-        selectedObject = Instantiate(objects[index], pos, transform.rotation);
+        placingObject = Instantiate(objects[index], pos, transform.rotation);
     }
 
     public void PlaceObject()
     {
-        selectedObject = null;
+        placingObject = null;
     }
 
     public void ToggleGrid()
@@ -85,6 +85,6 @@ public class BuildingManager : MonoBehaviour
 
     public void RotateObject()
     {
-        selectedObject.transform.Rotate(Vector3.up, rotateAmount * Time.deltaTime);
+        placingObject.transform.Rotate(Vector3.up, rotateAmount * Time.deltaTime);
     }
 }

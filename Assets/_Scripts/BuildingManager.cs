@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BuildingManager : MonoBehaviour
 {
     public GameObject[] objects;
-    private GameObject placingObject;
+    public GameObject placingObject;
+
+    [SerializeField] private Material[] materials;
 
     private Vector3 pos;
 
@@ -17,6 +20,7 @@ public class BuildingManager : MonoBehaviour
 
     public float gridSize;
     bool gridOn;
+    public bool canPlace;
     [SerializeField] private Toggle gridToggle;
 
     // Start is called before the first frame update
@@ -30,6 +34,8 @@ public class BuildingManager : MonoBehaviour
     {
         if(placingObject != null)
         {
+            UpdateMaterials();
+            
             if (gridOn)
             {
                 placingObject.transform.position = new Vector3(
@@ -39,7 +45,7 @@ public class BuildingManager : MonoBehaviour
             }
             else placingObject.transform.position = pos; 
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && canPlace)
                 PlaceObject();
             if (Input.GetKey(KeyCode.R))
                 RotateObject();
@@ -60,8 +66,21 @@ public class BuildingManager : MonoBehaviour
         placingObject = Instantiate(objects[index], pos, transform.rotation);
     }
 
+    void UpdateMaterials()
+    {
+        if (canPlace)
+        {
+            placingObject.GetComponent<MeshRenderer>().material = materials[0];
+        }
+        if (!canPlace)
+        {
+            placingObject.GetComponent<MeshRenderer>().material = materials[1];
+        }
+    }
+
     public void PlaceObject()
     {
+        placingObject.GetComponent<MeshRenderer>().material = materials[2];
         placingObject = null;
     }
 

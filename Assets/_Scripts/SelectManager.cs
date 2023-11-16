@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SelectManager : MonoBehaviour
 {
     public GameObject selectedObject;
+    public Text objNameText;
+    private BuildingManager buildingManager;
+    public GameObject objectUI;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        buildingManager = GetComponent<BuildingManager>();
     }
 
     // Update is called once per frame
@@ -45,12 +49,26 @@ public class SelectManager : MonoBehaviour
         selectedObject = obj;
         //*
 
-
+        objNameText.text = obj.name;
+        objectUI.SetActive(true);
     }
 
     private void Deselect()
     {
         selectedObject.GetComponent<Outline>().enabled = false;
         selectedObject = null;
+        objectUI.SetActive(false);
+    }
+
+    public void Move()
+    {
+        buildingManager.placingObject = selectedObject;
+    }
+
+    public void Delete()
+    {
+        GameObject objToDestroy = selectedObject;
+        Deselect();
+        Destroy(objToDestroy);
     }
 }

@@ -6,7 +6,6 @@ using UnityEngine;
 public class CheckPlacement : MonoBehaviour
 {
     public BuildingManager buildingManager;
-    private bool stillTouching = false;
 
     // Start is called before the first frame update
     void Start()

@@ -13,6 +13,7 @@ namespace Custom.AI
 
         public AIStats stats;
         public Transform eyes;
+        public State remainState;
 
 
         [HideInInspector] public NavMeshAgent navMeshAgent;
@@ -48,6 +49,12 @@ namespace Custom.AI
                 Gizmos.color = currentState.sceneGizmoColor;
                 Gizmos.DrawWireSphere(eyes.position, stats.lookShereCastRadius);
             }
+        }
+
+        public void TransitionToState(State nextState)
+        {
+            if (nextState != remainState)
+                currentState = nextState;
         }
     }
 }

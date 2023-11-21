@@ -4,6 +4,7 @@ using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.AI;
 using Custom.Build;
+using System.Xml.Serialization;
 
 namespace Custom.AI
 {
@@ -18,6 +19,8 @@ namespace Custom.AI
 
         [HideInInspector] public NavMeshAgent navMeshAgent;
         [HideInInspector] public GameController gameController;
+        [HideInInspector] public float stateTimeElapsed;
+        [HideInInspector] public LineRenderer lineRenderer;
 
         //Temp
         public List<Transform> wayPoints;
@@ -27,11 +30,13 @@ namespace Custom.AI
         public Building work;
 
         public bool aiActive;
+        public bool VisualisePath;
 
         private void Awake()
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
             gameController = GameObject.Find("GameController").GetComponent<GameController>();
+            lineRenderer = GetComponent<LineRenderer>();
         }
 
         private void Update()
@@ -40,6 +45,15 @@ namespace Custom.AI
                 return;
 
             currentState.UpdateState(this);
+ 
+            if(VisualisePath && navMeshAgent != null && navMeshAgent.hasPath)
+            {
+                lineRenderer.positionCount = navMeshAgent.path.corners.Length;
+                lineRenderer.SetPositions(navMeshAgent.path.corners);
+                lineRenderer.enabled = true;
+            }
+            else
+                lineRenderer.enabled = true;
         }
 
         private void OnDrawGizmos()
@@ -55,6 +69,17 @@ namespace Custom.AI
         {
             if (nextState != remainState)
                 currentState = nextState;
+        }
+
+        public bool CheckIfCountDownElapsed(float duration)
+        {
+            stateTimeElapsed += Time.deltaTime;
+            return (stateTimeElapsed >= duration);
+        }
+
+        private void OnExitState()
+        {
+            stateTimeElapsed = 0;
         }
     }
 }

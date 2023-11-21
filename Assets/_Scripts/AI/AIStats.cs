@@ -7,5 +7,7 @@ namespace Custom.AI
     {
         public float moveSpeed = 1;
         public float lookShereCastRadius = 2;
+        public float ActionRate = 3;
+        public float ActionRange = 2;
     }
 }

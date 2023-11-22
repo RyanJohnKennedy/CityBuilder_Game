@@ -19,22 +19,17 @@ namespace Custom.AI
 
 
         [HideInInspector] public NavMeshAgent navMeshAgent;
-        [HideInInspector] public NavMeshSurface navMesh;
         [HideInInspector] public GameController gameController;
         [HideInInspector] public float stateTimeElapsed;
-        [HideInInspector] public LineRenderer lineRenderer;
-
-        public Building home;
-        public Building work;
+        [HideInInspector] public NPCController nPCController;
 
         public bool aiActive;
-        public bool VisualisePath;
 
         private void Awake()
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
             gameController = GameObject.Find("GameController").GetComponent<GameController>();
-            lineRenderer = GetComponent<LineRenderer>();
+            nPCController = GetComponent<NPCController>();
         }
 
         private void Update()
@@ -43,15 +38,6 @@ namespace Custom.AI
                 return;
 
             currentState.UpdateState(this);
- 
-            if(VisualisePath && navMeshAgent != null && navMeshAgent.hasPath)
-            {
-                lineRenderer.positionCount = navMeshAgent.path.corners.Length;
-                lineRenderer.SetPositions(navMeshAgent.path.corners);
-                lineRenderer.enabled = true;
-            }
-            else
-                lineRenderer.enabled = true;
         }
 
         private void OnDrawGizmos()

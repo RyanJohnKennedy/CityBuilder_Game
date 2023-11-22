@@ -6,12 +6,16 @@ namespace Custom.Build
 {
     public class Building : MonoBehaviour
     {
-        private GameController gameController;
+        public GameController gameController;
+
+        private void Awake()
+        {
+            gameController = GameObject.Find("GameController").GetComponent<GameController>();
+        }
 
         // Start is called before the first frame update
         void Start()
         {
-            gameController = GameObject.Find("GameController").GetComponent<GameController>();
         }
 
         // Update is called once per frame

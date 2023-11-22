@@ -19,7 +19,7 @@ namespace Custom.AI
             float radius = 20;
 
             Vector3 randomDirection = Random.insideUnitSphere * radius;
-            randomDirection += controller.home.transform.position;
+            randomDirection += controller.nPCController.home.transform.position;
             NavMeshHit hit;
             NavMesh.SamplePosition(randomDirection, out hit, radius, 1);
             Vector3 finalPosition = hit.position;

@@ -17,6 +17,8 @@ public class GameController : MonoBehaviour
     [Header("Builings Info")]
     public List<Building> homes = new List<Building>();
 
+    public int HomeSpots { get => homes.Count; }
+
     // Start is called before the first frame update
     void Start()
     {

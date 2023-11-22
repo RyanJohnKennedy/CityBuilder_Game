@@ -14,7 +14,7 @@ namespace Custom.AI
 
         private void ReturnHome(AIStateController controller)
         {
-            controller.navMeshAgent.destination = controller.home.gameObject.transform.position;
+            controller.navMeshAgent.destination = controller.nPCController.home.gameObject.transform.position;
             controller.navMeshAgent.isStopped = false;
         }
     }

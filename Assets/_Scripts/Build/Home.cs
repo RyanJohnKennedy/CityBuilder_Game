@@ -4,14 +4,19 @@ using UnityEngine;
 
 namespace Custom.Build
 {
-    public class Building : MonoBehaviour
+    public class Home : Building
     {
-        private GameController gameController;
+
+        [Header("Resident Info")]
+        public List<NPCController> residents = new List<NPCController>();
+        public int maxResidents;
+
+        public int NumResidents { get => residents.Count; }
 
         // Start is called before the first frame update
         void Start()
         {
-            gameController = GameObject.Find("GameController").GetComponent<GameController>();
+
         }
 
         // Update is called once per frame

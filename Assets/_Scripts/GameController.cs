@@ -1,5 +1,7 @@
+using Custom.Build;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public enum TimeOfDay
@@ -10,6 +12,10 @@ public enum TimeOfDay
 public class GameController : MonoBehaviour
 {
     public TimeOfDay timeOfDay;
+    public NavMeshSurface navMeshSurface;
+
+    [Header("Builings Info")]
+    public List<Building> homes = new List<Building>();
 
     // Start is called before the first frame update
     void Start()
@@ -21,5 +27,10 @@ public class GameController : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void AddHome(Building homeToAdd)
+    {
+        homes.Add(homeToAdd);
     }
 }

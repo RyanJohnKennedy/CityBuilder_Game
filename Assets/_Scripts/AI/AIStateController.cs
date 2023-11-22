@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Custom.Build;
 using System.Xml.Serialization;
+using Unity.AI.Navigation;
 
 namespace Custom.AI
 {
@@ -18,13 +19,10 @@ namespace Custom.AI
 
 
         [HideInInspector] public NavMeshAgent navMeshAgent;
+        [HideInInspector] public NavMeshSurface navMesh;
         [HideInInspector] public GameController gameController;
         [HideInInspector] public float stateTimeElapsed;
         [HideInInspector] public LineRenderer lineRenderer;
-
-        //Temp
-        public List<Transform> wayPoints;
-        [HideInInspector] public int nextWayPoint;
 
         public Building home;
         public Building work;

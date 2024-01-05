@@ -8,6 +8,7 @@ namespace Custom.AI
     [CreateAssetMenu(menuName = "AI/Actions/Wonder")]
     public class WonderAction : Action
     {
+        private float randomWonder = 0;
         public override void Act(AIStateController controller)
         {
             DelayWonder(controller);
@@ -29,10 +30,14 @@ namespace Custom.AI
 
         private void DelayWonder(AIStateController controller)
         {
-            if (controller.CheckIfCountDownElapsed(5))
+            if (randomWonder == 0)
+                randomWonder = Random.Range(1, 15);
+
+            if (controller.CheckIfCountDownElapsed(randomWonder))
             {
                 Wonder(controller);
                 controller.stateTimeElapsed = 0;
+                randomWonder = 0;
             }
         }
     }

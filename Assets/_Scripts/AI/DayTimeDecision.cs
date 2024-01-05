@@ -16,7 +16,7 @@ namespace Custom.AI
 
         private bool CheckTime(AIStateController controller)
         {
-            if (controller.gameController.timeOfDay.Equals(TimeOfDay.Night))
+            if (controller.gameController.dayNight.Equals(DayNight.Night))
                 return false;
             return true;
         }

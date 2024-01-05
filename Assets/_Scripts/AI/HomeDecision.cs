@@ -14,7 +14,7 @@ namespace Custom.AI
 
         private bool Home(AIStateController controller)
         {
-            if (controller.gameController.timeOfDay == TimeOfDay.Night)
+            if (controller.gameController.dayNight == DayNight.Night)
             {
                 return true;
             }
